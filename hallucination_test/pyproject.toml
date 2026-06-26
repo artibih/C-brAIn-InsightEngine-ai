@@ -1,0 +1,19 @@
+[project]
+name = "hallucination-test"
+version = "0.1.0"
+description = "Hallucination Agent test"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "aiohttp>=3.13.4",
+    "asyncio>=4.0.0",
+    "fastexcel>=0.19.0",
+    "logging>=0.4.9.6",
+    "matplotlib>=3.10.8",
+    "pandas>=3.0.1",
+    "polars>=1.39.3",
+    "python-calamine>=0.6.2",
+    "seaborn>=0.13.2",
+    "typer>=0.24.1",
+    "xlsxwriter>=3.2.9",
+]

@@ -1,0 +1,77 @@
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cbrain-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    depends_on:
+      - weaviate
+    networks:
+      - weaviate_network
+    env_file:
+      - .env
+    # volumes:
+    #   - ./data:/app/data # TODO: Remove this before deployment
+
+  neo4j:
+    image: neo4j:5-community
+    container_name: neo4j-local
+    restart: unless-stopped
+    ports:
+      - "7474:7474"   # Browser UI
+      - "7687:7687"   # Bolt (Python driver)
+    environment:
+      NEO4J_AUTH: neo4j/password
+      NEO4J_PLUGINS: '["apoc"]'
+    volumes:
+      - neo4j_data:/data
+    networks:
+      - weaviate_network
+
+  weaviate:
+    image: semitechnologies/weaviate:1.29.0
+    environment:
+      QUERY_DEFAULTS_LIMIT: 25
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: "true"
+      PERSISTENCE_DATA_PATH: "/var/lib/weaviate"
+      ENABLE_MODULES: "text2vec-openai"
+      DEFAULT_VECTORIZER_MODULE: "text2vec-openai"
+      OPENAI_APIKEY: "${AZURE_OPENAI_API_KEY}"
+      OPENAI_TYPE: "azure"
+      AZURE_RESOURCE_NAME: "${AZURE_OPENAI_RESOURCE_NAME}"
+      AZURE_DEPLOYMENT_ID: "${AZURE_OPENAI_EMBEDDING_DEPLOYMENT}"
+      AZURE_API_VERSION: "${AZURE_OPENAI_API_VERSION}"
+      CLUSTER_HOSTNAME: "node1"
+    volumes:
+      - weaviate_data:/var/lib/weaviate
+ 
+    networks:
+      - weaviate_network
+  
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - weaviate
+      - neo4j
+    networks:
+      - weaviate_network
+    volumes:
+      - ./data:/app/data
+    command: python -m src.workers.worker
+    env_file:
+      - .env
+
+volumes: 
+  weaviate_data:
+  neo4j_data:
+
+networks:
+  weaviate_network:
+    driver: bridge

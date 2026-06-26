@@ -1,0 +1,65 @@
+embedder:
+  chunk-model: "mistral-embed"
+
+checkpoint_db_path: "./data/checkpoints.db"
+
+ocr:
+  model: "mistral-ocr-latest"
+
+root_document_storage_path: "./out"
+
+
+paper_eval_generator:
+  base_url: "https://api.openai.com/v1"
+  model: "gpt-4"  
+
+summary_generator:
+  base_url: "https://api.openai.com/v1"
+  model: "gpt-4"
+
+contextual_generator:
+  base_url: "https://api.openai.com/v1"
+  model: "gpt-4"
+
+image_summary_generator:
+  base_url: "https://api.openai.com/v1"
+  model: "gpt-4.1-mini"
+
+paper_summary_generator:
+  base_url: "https://api.openai.com/v1"
+  model: "gpt-4.1-mini"
+
+table_summary_generator:
+  base_url: "https://api.openai.com/v1"
+  model: "gpt-4.1-mini"
+
+weaviate_summaries:
+  collection_name: "Summary_Prod"
+
+weaviate_sections:
+  collection_name: "SectionChunks_Prod"
+
+weaviate_images:
+  collection_name: "Images_Prod"
+
+table_weaviate:
+  collection_name: "Tables_Prod"
+
+weaviate_metadata:
+  collection_name: "PaperMetadata_Prod"
+  
+weaviate_db:
+  host: ${WEAVIATE_HOST:-localhost}
+
+retry_logic:
+  max_attempts: 5
+  multiplier: 1
+  min_wait: 1
+  max_wait: 5
+  exceptions: ["Exception"]
+
+evaluator:
+  checkpoint_db_path: "./data/papers.db"
+  input_txt_file: "./inputs/document_ids_test.txt"
+  output_xlsx_file: "./outputs/paper_eval.xlsx"
+  table_name: evaluations

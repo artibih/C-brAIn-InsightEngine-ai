@@ -1,0 +1,68 @@
+langgraph>=0.2.0
+langchain>=0.3.0
+langchain-openai>=0.2.0
+langchain-anthropic>=0.2.0
+langchain-community>=0.3.0
+
+# Vector & Graph Databases
+neo4j>=5.0.0
+
+# API Framework
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+asyncer==0.0.17
+
+# Data Processing
+pandas>=2.0.0
+numpy>=1.24.0
+scipy>=1.11.0
+openpyxl>=3.1.0
+python-multipart>=0.0.9
+statsmodels
+
+# Document Processing
+pypdf>=4.0.0
+python-docx>=1.1.0
+beautifulsoup4>=4.12.0
+PyMuPDF>=1.0.0
+# Code Execution
+jupyter-client>=8.0.0
+ipykernel>=6.29.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.13.0
+plotly>=5.18.0
+
+# Utilities
+python-dotenv>=1.0.0
+httpx>=0.27.0
+tenacity>=8.0.0
+tiktoken>=0.7.0
+
+
+# Logging & Monitoring
+structlog>=24.0.0
+prometheus-client>=0.20.0
+langchain-google-genai
+
+azure-storage-blob
+azure-storage-queue
+openai
+weaviate-client>=3.0.0,<4.0.0
+pypdf
+azure-identity
+
+watchdog==6.0.0
+sentence-transformers==5.2.2
+mistralai==1.10.1
+
+# Graph Rag
+instructor>=1.14.5
+tabulate>=0.9.0
+
+requests>=2.31.0
+
+pyodbc
